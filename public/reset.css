@@ -1,0 +1,17 @@
+html{
+    font-size: 6vw;
+}
+html,body{
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+}
+#app{
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+a{
+    color: #666;
+    text-decoration: none;
+}
