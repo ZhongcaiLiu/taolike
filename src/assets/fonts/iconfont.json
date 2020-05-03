@@ -13,6 +13,48 @@
       "unicode_decimal": 983417
     },
     {
+      "icon_id": "107551",
+      "name": "打车",
+      "font_class": "car",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "657472",
+      "name": "住宿",
+      "font_class": "zhusu",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "797059",
+      "name": "景点",
+      "font_class": "jingdian",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "1473243",
+      "name": "电影",
+      "font_class": "dianying",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "2132563",
+      "name": "旅游",
+      "font_class": "lvyou",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "2170603",
+      "name": "外卖-2",
+      "font_class": "waimai-",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
       "icon_id": "3977271",
       "name": "我的",
       "font_class": "weibiaoti-_huabanfuben",
@@ -25,6 +67,20 @@
       "font_class": "yemian-copy-copy-copy-copy",
       "unicode": "e50e",
       "unicode_decimal": 58638
+    },
+    {
+      "icon_id": "7791035",
+      "name": "娱乐",
+      "font_class": "yule",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    },
+    {
+      "icon_id": "7843634",
+      "name": "美食",
+      "font_class": "fenzu",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
     },
     {
       "icon_id": "14027871",

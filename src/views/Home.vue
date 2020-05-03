@@ -1,17 +1,24 @@
 <template>
   <div id="Home">
-      <h1>首页</h1>
+      <Navicon/>
+      <Carousel/>
   </div>
 </template>
 
 <script>
+
+import Navicon from '@/components/Navicon'
+import Carousel from '@/components/Carousel'
+
 export default {
-  name: "home"
+  name: "home",
+  components:{
+    Navicon,
+    Carousel
+  }
 };
 </script>
 
 <style scoped>
-h1{
-  font-size: 1rem;
-}
+
 </style>

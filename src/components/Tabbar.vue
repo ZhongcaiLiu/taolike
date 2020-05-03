@@ -1,7 +1,7 @@
 <template>
   <div id="Tabbar">
     <router-link to="/home"><span class="iconfont icon-yemian-copy-copy-copy-copy"></span>首页</router-link>
-    <router-link to="/classify"><span class="iconfont icon-feneli-copy"></span>分类</router-link>
+    <router-link to="/category"><span class="iconfont icon-feneli-copy"></span>分类</router-link>
     <router-link to="/cart"><span class="iconfont icon-gouwuchekong"></span>购物车</router-link>
     <router-link to="/mine"><span class="iconfont icon-weibiaoti-_huabanfuben"></span>我的</router-link>
   </div>
@@ -21,7 +21,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 8%;
+  height: 2.3rem;
   background-color: #fff;
 }
 #Tabbar a {
