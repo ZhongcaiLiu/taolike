@@ -40,15 +40,17 @@ export default {
     this.autoplay();
   },
   destroyed() {
-    clearInterval(this.timer);
+    clearInterval(this.timer);//清除定时器，提高性能
   }
 };
 </script>
 
 <style scoped>
 #Carousel {
-  height: 6rem;
+  padding-top: .5rem;
   position: relative;
+  background-color: #fff;
+  height: 6rem;
 }
 img {
   height: 6rem;
