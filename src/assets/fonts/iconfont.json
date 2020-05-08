@@ -20,6 +20,20 @@
       "unicode_decimal": 58890
     },
     {
+      "icon_id": "383636",
+      "name": "右箭头",
+      "font_class": "youjiantou",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "584247",
+      "name": "左箭头",
+      "font_class": "iconfontjiantou1",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
       "icon_id": "657472",
       "name": "住宿",
       "font_class": "zhusu",
@@ -62,6 +76,13 @@
       "unicode_decimal": 58906
     },
     {
+      "icon_id": "4539890",
+      "name": "星星",
+      "font_class": "xingxing",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
       "icon_id": "6696711",
       "name": "首页-选中",
       "font_class": "yemian-copy-copy-copy-copy",
@@ -83,11 +104,25 @@
       "unicode_decimal": 58908
     },
     {
+      "icon_id": "13986807",
+      "name": "客服",
+      "font_class": "kefu",
+      "unicode": "e572",
+      "unicode_decimal": 58738
+    },
+    {
       "icon_id": "14027871",
       "name": "分类-选中",
       "font_class": "feneli-copy",
       "unicode": "e504",
       "unicode_decimal": 58628
+    },
+    {
+      "icon_id": "14112851",
+      "name": "店铺",
+      "font_class": "dianpu",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
     }
   ]
 }

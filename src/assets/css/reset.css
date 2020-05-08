@@ -14,8 +14,12 @@ a{
     color: #666;
     text-decoration: none;
 }
-ul,p{
+ul,p,h1,button{
     margin: 0;
     padding: 0;
     list-style: none;
+}
+button{
+    border: none;
+    outline: none;
 }

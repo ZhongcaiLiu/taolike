@@ -46,8 +46,8 @@ export default {
     align-items: center;
 }
 .navicon .icon{
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.2rem;
+    height: 2.2rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;

@@ -1,19 +1,18 @@
 <template>
-  <div id="GuessYouLike">
-    <img src="../assets/imgs/guessyoulike.png">
-    <ul class="goodslist">
-      <li v-for="item in goodslist" :key="item.id">
-        <img :src="item.img">
-        <p class="title">{{item.name}}</p>
-        <p class="price"><span>￥{{item.price | formatPrice(item.price)}}</span><span>{{item.buy_Num}}人已购买</span></p>
-      </li>
-    </ul>
+  <div id="GoodsList">
+        <ul class="goodslist">
+          <li v-for="item in goodslist" :key="item.id">
+            <img :src="item.img" @tap='toDetail(item._id)'>
+            <p class="title" @tap='toDetail(item._id)'>{{item.name}}</p>
+            <p class="price"><span>￥{{item.price | formatPrice(item.price)}}</span><span>{{item.buy_Num}}人已购买</span></p>
+          </li>
+        </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'GuessYouLike',
+  name: 'GoodsList',
   props: {
     changeTip: Function
   },
@@ -24,7 +23,7 @@ export default {
   },
   mounted() {
     this.axios.get('/api/goods').then((res) => {
-      let status = res.data.status;
+      let status = res.data.err;
       if (status === 0) {
         this.goodslist = res.data.list
       }
@@ -38,32 +37,28 @@ export default {
   methods: {
     Refresh() {
       this.axios.get('/api/goods').then((res) => {
-        let status = res.data.status;
+        let status = res.data.err;
         if (status === 0) {
           this.changeTip('刷新成功')
-          console.log(1)
           setTimeout(() => {
             this.goodslist = res.data.list;
             this.changeTip('')
           }, 1000)
         }
       })
+    },
+    toDetail(goodsid){
+     this.$router.push(this.$route.path+'/goodsDetail/'+goodsid)
     }
   }
 }
 </script>
 
 <style scoped>
-#GuessYouLike {
+#GoodsList {
   width: 100%;
   padding-top: 0.6rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-img {
-  width: 50%;
+  background-color: #eee;
 }
 .goodslist {
   width: 100%;

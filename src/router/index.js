@@ -9,7 +9,7 @@ const Cart = () => import('../views/Cart')
 const Mine = () => import('../views/Mine')
 const GoodsDetail = () => import('../views/Home/components/GoodsDetail.vue')
 
-const router = new VueRouter({
+export default new VueRouter({
     routes: [{
             path: '/',
             redirect: '/home'
@@ -17,12 +17,11 @@ const router = new VueRouter({
         {
             path: '/home',
             component: Home,
-            children: [
-                {
-                    path: '/goodsDetail',
-                    component: GoodsDetail
-                }
-            ]
+            children: [{
+                path: 'goodsDetail/:id',
+                component: GoodsDetail,
+                props: true
+            }]
         },
         {
             path: '/category',
@@ -30,7 +29,14 @@ const router = new VueRouter({
         },
         {
             path: '/cart',
-            component: Cart
+            component: Cart,
+            children: [
+                {
+                    path: 'goodsDetail/:id',
+                    component: GoodsDetail,
+                    props:true
+                }
+            ]
         },
         {
             path: '/mine',
@@ -38,4 +44,3 @@ const router = new VueRouter({
         }
     ]
 })
-export default router
