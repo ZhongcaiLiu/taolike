@@ -17,8 +17,8 @@
 
 <script>
 
-import Navicon from '@/components/Navicon'
-import Carousel from '@/components/Carousel'
+import Navicon from '@/views/Home/components/Navicon'
+import Carousel from '@/views/Home/components/Carousel'
 import GoodsList from '@/components/GoodsList'
 import Tabbar from "@/components/Tabbar";
 

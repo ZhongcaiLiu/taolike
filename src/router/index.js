@@ -7,7 +7,7 @@ const Home = () => import('../views/Home')
 const Category = () => import('../views/Category')
 const Cart = () => import('../views/Cart')
 const Mine = () => import('../views/Mine')
-const GoodsDetail = () => import('../views/Home/components/GoodsDetail.vue')
+const GoodsDetail = () => import('../views/GoodsDetail')
 
 export default new VueRouter({
     routes: [{

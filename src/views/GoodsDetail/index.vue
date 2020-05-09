@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import GoodsOptions from '@/views/Home/components/GoodsOptions'
-import BottomNav from '@/components/BottomNav'
+import GoodsOptions from '@/views/GoodsDetail/components/GoodsOptions'
+import BottomNav from '@/views/GoodsDetail/components/BottomNav'
 export default {
   name: 'GoodsDetail',
   props: ['id'],

@@ -19,7 +19,7 @@ ul,p,h1,button{
     padding: 0;
     list-style: none;
 }
-button{
+button,input{
     border: none;
     outline: none;
 }
