@@ -22,4 +22,5 @@ ul,p,h1,button{
 button,input{
     border: none;
     outline: none;
+    padding: 0;
 }

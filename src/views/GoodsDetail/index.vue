@@ -16,6 +16,7 @@
         <GoodsOptions />
       </div>
       <span class="iconfont icon-iconfontjiantou1" @tap="Back"></span>
+      <span class="iconfont icon-gouwuchekong" @tap="toCart"></span>
     </scroller>
     <BottomNav />
   </div>
@@ -38,7 +39,10 @@ export default {
   },
   methods: {
     Back() {
-      this.$router.go(-1)
+      this.$router.back()
+    },
+    toCart() {
+      this.$router.push('/cart')
     }
   },
   mounted() {
@@ -103,6 +107,19 @@ export default {
 .icon-iconfontjiantou1 {
   position: fixed;
   left: 0.6rem;
+  top: 0.5rem;
+  color: #fff;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-gouwuchekong {
+  position: fixed;
+  right: 0.6rem;
   top: 0.5rem;
   color: #fff;
   width: 1.4rem;

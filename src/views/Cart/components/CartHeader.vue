@@ -1,8 +1,8 @@
 <template>
-  <div id="CartHeader" :style="goods?{height:'5.8rem'}:{}">
-    <span>购物车(0)</span>
-    <span>管理</span>
-    <p>共1件宝贝</p>
+  <div id="CartHeader" :style="goodsQty?{height:'5.8rem'}:{}">
+    <span>购物车({{goodsQty}})</span>
+    <span  v-if="goodsQty">管理</span>
+    <p v-if="goodsQty">共{{goodsQty}}件宝贝</p>
   </div>
 </template>
 
@@ -12,7 +12,14 @@ import { mapState } from 'vuex'
 export default {
   name: 'CartHeader',
   computed: {
-    ...mapState(['goods'])
+    ...mapState(['goodsQty']),
+  },
+  watch:{
+    goodsQty:{
+      handler:function(val,oldval){
+        localStorage.setItem('goodsQty',val)
+      }
+    }
   }
 }
 </script>

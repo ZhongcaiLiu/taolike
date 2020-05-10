@@ -6,7 +6,7 @@
           <div><span class="iconfont icon-xingxing"></span>收藏</div>
         </div>
         <div class="btn">
-          <button @touchstart='addCart'>加入购物车</button>
+          <button @touchstart='addCart($route.params.id)'>加入购物车</button>
           <button>立即购买</button>
         </div>
   </div>
@@ -16,8 +16,9 @@
 export default {
   name: 'bottomNav',
   methods: {
-    addCart() {
-      console.log(1)
+    addCart(id) {
+      console.log(id)
+      this.$store.commit('ADD_CART',id)
     }
   }
 }
