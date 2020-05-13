@@ -1,12 +1,12 @@
 <template>
   <div id="GoodsList">
-        <ul class="goodslist">
-          <li v-for="item in goodslist" :key="item.id">
-            <img :src="item.img" @tap='toDetail(item._id)'>
-            <p class="title" @tap='toDetail(item._id)'>{{item.name}}</p>
-            <p class="price"><span>￥{{item.price | formatPrice(item.price)}}</span><span>{{item.buy_Num}}人已购买</span></p>
-          </li>
-        </ul>
+    <ul class="goodslist">
+      <li v-for="item in goodslist" :key="item.id">
+        <img :src="item.img" @tap='toDetail(item._id)'>
+        <p class="title" @tap='toDetail(item._id)'>{{item.name}}</p>
+        <p class="price"><span>￥{{item.price | formatPrice}}</span><span>{{item.buy_Num}}人已购买</span></p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
   },
   filters: {
     formatPrice(val) {
-      return val.split('-')[0]
+      return parseInt(val.split('-')[0]);
     }
   },
   methods: {
@@ -47,8 +47,8 @@ export default {
         }
       })
     },
-    toDetail(goodsid){
-     this.$router.push(this.$route.path+'/goodsDetail/'+goodsid)
+    toDetail(goodsid) {
+      this.$router.push(this.$route.path + '/goodsDetail/' + goodsid)
     }
   }
 }

@@ -2,17 +2,26 @@
   <div id="Cart">
     <scroller>
       <div class="cart">
-        <CartHeader />
-        <CartList v-if="goodsQty" />
+        <CartHeader/>
+        <CartList v-if="ShopCart.length" />
         <EmptyCart v-else />
         <div class="guessyoulike"> <img src="@/assets/images/guessyoulike.png"></div>
         <GoodsList />
       </div>
     </scroller>
-    <div id="totalPrice" v-if="goodsQty">
-      <input type="checkbox" v-model="Check"><span>全选</span>
-      <span>合计：<span>￥0</span></span>
-      <button>结算(0)</button>
+    <div id="totalPrice" v-if="ShopCart.length">
+      <div class="checkbox">
+        <input type="checkbox" v-model="CheckAll">
+        <span>全选</span>
+      </div>
+      <div class="price" v-if="manage=='管理'">
+        <span>合计：<span>￥{{SELECT_GOODS_PRICE}}</span></span>
+        <button>结算({{SELECT_GOODS_COUNT}})</button>
+      </div>
+      <div class="delGoods" v-else>
+        <button>移入收藏夹</button>
+        <button @touchstart='DEL_GOODS'>删除</button>
+      </div>
     </div>
     <Tabbar />
     <router-view></router-view>
@@ -26,7 +35,7 @@ import CartList from '@/views/Cart/components/CartList'
 import EmptyCart from '@/views/Cart/components/EmptyCart'
 import GoodsList from '@/components/GoodsList'
 import Tabbar from '@/components/Tabbar'
-import { mapState } from 'vuex'
+import { mapState, mapGetters,mapMutations } from 'vuex'
 
 export default {
   name: "cart",
@@ -38,15 +47,19 @@ export default {
     Tabbar
   },
   computed: {
-    ...mapState(['goodsQty', 'isChecked', 'goodsid']),
-    Check: {
+    ...mapState(['ShopCart','manage']),
+    ...mapGetters(['SELECT_GOODS_COUNT', 'SELECT_GOODS_PRICE']),
+    CheckAll: {
       get() {
-        return this.isChecked.length === this.goodsQty
+        return this.$store.state.AllCheck
       },
-      set() {
-        this.$store.commit('ALL_CHECK')
+      set(val) {
+        this.$store.commit('ALL_CHECK', val)
       }
     }
+  },
+  methods:{
+   ...mapMutations(['DEL_GOODS']),
   }
 };
 </script>
@@ -77,11 +90,17 @@ export default {
   display: flex;
   align-items: center;
 }
+#totalPrice .checkbox {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 0.8rem;
+}
 #totalPrice input {
   appearance: none;
   border: 1px solid #ccc;
   border-radius: 50%;
-  margin-left: 1.25rem;
   margin-right: 0.2rem;
 }
 #totalPrice input::after {
@@ -94,13 +113,18 @@ export default {
   background: url("../../assets/images/checked.png") no-repeat;
   background-size: cover;
 }
-#totalPrice span:nth-of-type(2) {
-  margin-left: 5.8rem;
+#totalPrice .price,.delGoods {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 0.8rem;
 }
-#totalPrice span:nth-of-type(2) span {
+#totalPrice .price span span {
   color: red;
 }
-#totalPrice button {
+#totalPrice .price button {
   width: 3.5rem;
   height: 70%;
   background-image: linear-gradient(90deg, #ff9000 0%, #ff5000 98%);
@@ -108,5 +132,18 @@ export default {
   border-radius: 1rem;
   margin-left: 0.6rem;
   font-size: 0.65rem;
+}
+#totalPrice .delGoods button{
+  width: 3.5rem;
+  height: 50%;
+  border-radius: 1rem;
+  border: 1px solid #f40;
+  color: #ff5000;
+  background-color: #fff;
+}
+#totalPrice .delGoods button:nth-child(2){
+  width: 2.5rem;
+  margin-left: .5rem;
+  color: #fc0a0a;
 }
 </style>

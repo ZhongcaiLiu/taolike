@@ -1,27 +1,109 @@
+import Vue from 'vue'
 import {
-    ADD_CART,
+    ADD_GOODS,
+    INC_NUM,
+    DEC_NUM,
+    INP_NUM,
     IS_CHECK,
-    NO_CHECK,
-    ALL_CHECK
+    ALL_CHECK,
+    CHANGE_MANAGE,
+    DEL_GOODS
 } from './mutation-type';
+import {
+    setLocalStorage
+} from '@/utils/LocalStorage';
 export default {
-    [ADD_CART](state, id) {
-        if (!state.goodsid.includes(id)) { //防止多次点击同一商品加入购物车，购物车宝贝数量会叠加且会存入重复的值
-            state.goodsQty++;
-            state.goodsid.push(id);
-        }
-    },
-    [IS_CHECK](state, id) {
-        state.isChecked.push(id)
-    },
-    [NO_CHECK](state, id) {
-        state.isChecked.splice(id, 1)
-    },
-    [ALL_CHECK](state) {
-        if (state.isChecked === state.goodsid) {
-            state.isChecked = []
+    [ADD_GOODS](state, item) {
+        //从state里取出购物车数据
+        let ShopCart = state.ShopCart;
+        let index = ShopCart.findIndex(s => {
+            return s._id === item._id
+        })
+        if (index === -1) {
+            Vue.set(item, 'checked', false)
+            Vue.set(item, 'num', 1)
+            ShopCart.push(item)
         } else {
-            state.isChecked = state.goodsid
+            ShopCart[index].num++;
         }
+        ShopCart.forEach(s => {
+            if (!s.checked) {
+                state.AllCheck = false;
+            }
+        })
+        setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
+        //同步更新state数据
+        state.ShopCart = ShopCart;
+    },
+    [INC_NUM](state, item) {
+        let ShopCart = state.ShopCart;
+        let i = ShopCart.findIndex(s => s._id === item._id);
+        ShopCart[i].num++;
+        setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
+        state.ShopCart = ShopCart;
+    },
+    [DEC_NUM](state, item) {
+        let ShopCart = state.ShopCart;
+        let i = ShopCart.findIndex(s => s._id === item._id);
+        if (ShopCart[i].num > 1) {
+            ShopCart[i].num--;
+        }
+        setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
+        state.ShopCart = ShopCart;
+    },
+    [INP_NUM](state, data) {
+        let ShopCart = state.ShopCart;
+        let {
+            value,
+            id
+        } = data;
+        let i = ShopCart.findIndex(s => s._id === id);
+        if (value == '') {
+            value = 1
+        }
+        let val = parseInt(value)
+        ShopCart[i].num = val;
+        setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
+        state.ShopCart = ShopCart;
+    },
+    [IS_CHECK](state, item) {
+        let ShopCart = state.ShopCart;
+        if (typeof (item.checked) == 'undefined') {
+            Vue.set(item, 'checked', true)
+        } else {
+            item.checked = !item.checked;
+        }
+        let arr = ShopCart.filter(s => s.checked);
+        if (arr.length == ShopCart.length && ShopCart.length > 0) {
+            state.AllCheck = true;
+        } else {
+            state.AllCheck = false;
+        }
+        setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
+        state.ShopCart = ShopCart;
+    },
+    [ALL_CHECK](state, val) {
+        let ShopCart = state.ShopCart;
+        ShopCart.forEach(s => {
+            s.checked = val, state.AllCheck = val
+        })
+        setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
+        state.ShopCart = ShopCart;
+    },
+    [CHANGE_MANAGE](state, manage) {
+        if (manage === '管理') {
+            state.manage = '完成'
+        } else {
+            state.manage = '管理'
+        }
+    },
+    [DEL_GOODS](state) {
+        let ShopCart = state.ShopCart;
+        ShopCart = ShopCart.filter(s => s.checked === false)
+        if (ShopCart.length === 0) {
+            state.manage = '管理'
+        }
+        setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
+        state.ShopCart = ShopCart;
     }
 }

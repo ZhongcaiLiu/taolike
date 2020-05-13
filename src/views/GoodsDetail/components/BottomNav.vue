@@ -1,24 +1,26 @@
 <template>
   <div id="bottomNav">
-        <div class="icon">
-          <div><span class="iconfont icon-dianpu"></span>店铺</div>
-          <div><span class="iconfont icon-kefu"></span>客服</div>
-          <div><span class="iconfont icon-xingxing"></span>收藏</div>
-        </div>
-        <div class="btn">
-          <button @touchstart='addCart($route.params.id)'>加入购物车</button>
-          <button>立即购买</button>
-        </div>
+    <div class="icon">
+      <div><span class="iconfont icon-dianpu"></span>店铺</div>
+      <div><span class="iconfont icon-kefu"></span>客服</div>
+      <div><span class="iconfont icon-xingxing"></span>收藏</div>
+    </div>
+    <div class="btn">
+      <button @touchstart='addGoods(goodsDetail)'>加入购物车</button>
+      <button>立即购买</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'bottomNav',
+  props: {
+    goodsDetail: Object
+  },
   methods: {
-    addCart(id) {
-      console.log(id)
-      this.$store.commit('ADD_CART',id)
+    addGoods(item) {
+      this.$store.commit('ADD_GOODS', item)
     }
   }
 }

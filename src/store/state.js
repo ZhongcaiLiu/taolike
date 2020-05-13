@@ -1,5 +1,6 @@
-export default{
-    goodsQty:JSON.parse(localStorage.getItem('goodsQty'))||0,
-    goodsid: JSON.parse(localStorage.getItem('goodsid')) || [],
-    isChecked:[]
+import {getLocalStorage}from '../utils/LocalStorage'
+export default {
+    ShopCart: getLocalStorage('ShopCart')||[],
+    AllCheck: false,
+    manage:'管理'
 }

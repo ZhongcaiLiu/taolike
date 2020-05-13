@@ -18,7 +18,7 @@
       <span class="iconfont icon-iconfontjiantou1" @tap="Back"></span>
       <span class="iconfont icon-gouwuchekong" @tap="toCart"></span>
     </scroller>
-    <BottomNav />
+    <BottomNav :goodsDetail='goodsDetail'/>
   </div>
 </template>
 

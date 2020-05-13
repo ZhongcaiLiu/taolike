@@ -1,15 +1,15 @@
 <template>
   <div id="CartList">
-    <div class="goods" v-for="item in CartList" :key="item._id">
-      <input type="checkbox" @tap='isCheck(item._id)' :checked='allcheck'>
+    <div class="goods" v-for="item in ShopCart" :key="item._id">
+      <a href="javascript:;" :checked='item.checked' @tap='isCheck(item)'></a>
       <img :src="item.img">
       <div class="content">
         <p>{{item.name}}</p>
-        <span>￥{{item.price | formatPrice(item.price)}}</span>
+        <span>￥{{item.price | formatPrice}}</span>
         <div class="count">
-          <button @tap='decrease'>-</button>
-          <input type="number" v-model="quantity">
-          <button @tap='increase'>+</button>
+          <button @tap='decrease(item)'>-</button>
+          <input type="number" v-model="item.num" @input="Num($event,item._id)">
+          <button @tap='increase(item)'>+</button>
         </div>
       </div>
     </div>
@@ -20,56 +20,29 @@
 import { mapState } from 'vuex'
 export default {
   name: 'CartList',
-  data() {
-    return {
-      quantity: 1,
-      CartList: [],
-    }
-  },
   computed: {
-    ...mapState(['goodsid', 'isChecked','goodsQty']),
-    allcheck(){
-      return this.isChecked===this.goodsid
-    }
-  },
-  methods: {
-    increase() {
-      this.quantity++;
-    },
-    decrease() {
-      if (this.quantity === 1) {
-        this.quantity = 1;
-      } else {
-        this.quantity--;
-      }
-    },
-    isCheck(id) {
-      if (this.isChecked.indexOf(id) === -1) {
-        this.$store.commit('IS_CHECK', id)
-      } else {
-        this.$store.commit('NO_CHECK', this.isChecked.indexOf(id))
-      }
-    }
-  },
-  watch: {
-    goodsid: {
-      handler: function (val, oldval) {
-        localStorage.setItem('goodsid', JSON.stringify(val))
-        this.axios.post('/api/goods/CartDetail', { goodsid: val }).then((res) => {
-          let status = res.data.err;
-          if (status === 0) {
-            this.CartList = res.data.data
-          }
-        })
-      },
-      immediate: true //立即监视
-    }
+    ...mapState(['ShopCart']),
   },
   filters: {
     formatPrice(val) {
-      return val.split('-')[0]
+      return parseFloat(val.split('-')[0]).toFixed(2)
     }
-  }
+  },
+  methods: {
+    decrease(item) {
+      this.$store.commit('DEC_NUM', item)
+    },
+    increase(item) {
+      this.$store.commit('INC_NUM', item)
+    },
+    Num(e, id) {
+      let value = e.target.value
+      this.$store.commit('INP_NUM', { value, id })
+    },
+    isCheck(item) {
+      this.$store.commit('IS_CHECK', item)
+    }
+  },
 }
 </script>
 
@@ -94,18 +67,14 @@ export default {
   position: relative;
   box-sizing: border-box;
 }
-input[type="checkbox"] {
-  appearance: none;
+a{
+  display: block;
+  width:12%;
+  height: 0.8rem;
   border-radius: 50%;
   border: 1px solid #ccc;
 }
-input[type="checkbox"]::after {
-  content: "";
-  display: block;
-  width: 0.8rem;
-  height: 0.8rem;
-}
-input[type="checkbox"]:checked {
+a[checked] {
   background: url("../../../assets/images/checked.png") no-repeat;
   background-size: cover;
 }

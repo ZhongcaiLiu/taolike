@@ -5,8 +5,10 @@ Vue.use(Vuex)
 
 import state from '@/store/state'
 import mutations from '@/store/mutations'
+import getters from '@/store/getters'
 
 export default new Vuex.Store({
     state,
-    mutations
+    mutations,
+    getters
 })

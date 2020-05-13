@@ -30,13 +30,11 @@ export default new VueRouter({
         {
             path: '/cart',
             component: Cart,
-            children: [
-                {
-                    path: 'goodsDetail/:id',
-                    component: GoodsDetail,
-                    props:true
-                }
-            ]
+            children: [{
+                path: 'goodsDetail/:id',
+                component: GoodsDetail,
+                props: true
+            }]
         },
         {
             path: '/mine',
