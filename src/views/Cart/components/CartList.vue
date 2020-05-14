@@ -7,9 +7,9 @@
         <p>{{item.name}}</p>
         <span>￥{{item.price | formatPrice}}</span>
         <div class="count">
-          <button @tap='decrease(item)'>-</button>
-          <input type="number" v-model="item.num" @input="Num($event,item._id)">
-          <button @tap='increase(item)'>+</button>
+          <button @tap='changeNum(item,false)'>-</button>
+          <input type="number" v-model="item.num" @input="inputNum($event,item._id)">
+          <button @tap='changeNum(item,true)'>+</button>
         </div>
       </div>
     </div>
@@ -29,13 +29,14 @@ export default {
     }
   },
   methods: {
-    decrease(item) {
-      this.$store.commit('DEC_NUM', item)
+    changeNum(item, flag) {
+      if (flag) {
+        this.$store.commit('INC_NUM', item)
+      } else {
+        this.$store.commit('DEC_NUM', item)
+      }
     },
-    increase(item) {
-      this.$store.commit('INC_NUM', item)
-    },
-    Num(e, id) {
+    inputNum(e, id) {
       let value = e.target.value
       this.$store.commit('INP_NUM', { value, id })
     },
@@ -67,15 +68,15 @@ export default {
   position: relative;
   box-sizing: border-box;
 }
-a{
+a {
   display: block;
-  width:12%;
+  width: 12%;
   height: 0.8rem;
   border-radius: 50%;
   border: 1px solid #ccc;
 }
 a[checked] {
-  background: url("../../../assets/images/checked.png") no-repeat;
+  background: url("../../../assets/images/Cart/checked.png") no-repeat;
   background-size: cover;
 }
 .goods img {

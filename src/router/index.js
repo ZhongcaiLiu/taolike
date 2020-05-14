@@ -8,6 +8,9 @@ const Category = () => import('../views/Category')
 const Cart = () => import('../views/Cart')
 const Mine = () => import('../views/Mine')
 const GoodsDetail = () => import('../views/GoodsDetail')
+const Register = () => import('../views/Register')
+const Login = () => import('../views/Login')
+
 
 export default new VueRouter({
     routes: [{
@@ -39,6 +42,14 @@ export default new VueRouter({
         {
             path: '/mine',
             component: Mine
+        },
+        {
+            path: '/register',
+            component:Register
+        },
+        {
+            path: '/login',
+            component:Login
         }
     ]
 })

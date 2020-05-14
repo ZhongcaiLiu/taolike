@@ -1,6 +1,6 @@
 <template>
   <div id="EmptyCart">
-    <img src="@/assets/images/cart.webp">
+    <img src="@/assets/images/Cart/cart.webp">
     <p>购物车竟然是空的</p>
     <p>再忙，也要记得买点什么犒赏自己~</p>
     <button @tap='toHome'>去逛逛</button>

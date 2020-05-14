@@ -79,6 +79,7 @@ export default {
         } else {
             state.AllCheck = false;
         }
+        setLocalStorage('AllCheck',state.AllCheck)//把是否全选存入本地
         setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
         state.ShopCart = ShopCart;
     },
@@ -87,6 +88,7 @@ export default {
         ShopCart.forEach(s => {
             s.checked = val, state.AllCheck = val
         })
+        setLocalStorage('AllCheck',state.AllCheck)//把是否全选存入本地
         setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
         state.ShopCart = ShopCart;
     },
@@ -101,8 +103,10 @@ export default {
         let ShopCart = state.ShopCart;
         ShopCart = ShopCart.filter(s => s.checked === false)
         if (ShopCart.length === 0) {
-            state.manage = '管理'
+            state.manage = '管理';
+            state.AllCheck = false;
         }
+        setLocalStorage('AllCheck',state.AllCheck)//把是否全选存入本地
         setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
         state.ShopCart = ShopCart;
     }

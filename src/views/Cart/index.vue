@@ -2,10 +2,10 @@
   <div id="Cart">
     <scroller>
       <div class="cart">
-        <CartHeader/>
+        <CartHeader />
         <CartList v-if="ShopCart.length" />
         <EmptyCart v-else />
-        <div class="guessyoulike"> <img src="@/assets/images/guessyoulike.png"></div>
+        <div class="guessyoulike"> <img src="@/assets/images/Cart/guessyoulike.png"></div>
         <GoodsList />
       </div>
     </scroller>
@@ -20,7 +20,7 @@
       </div>
       <div class="delGoods" v-else>
         <button>移入收藏夹</button>
-        <button @touchstart='DEL_GOODS'>删除</button>
+        <button @touchstart='delGoods'>删除</button>
       </div>
     </div>
     <Tabbar />
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-
 import CartHeader from '@/views/Cart/components/CartHeader'
 import CartList from '@/views/Cart/components/CartList'
 import EmptyCart from '@/views/Cart/components/EmptyCart'
 import GoodsList from '@/components/GoodsList'
 import Tabbar from '@/components/Tabbar'
-import { mapState, mapGetters,mapMutations } from 'vuex'
+import { confirm, messageBox } from '../../components/JS'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: "cart",
@@ -44,10 +44,10 @@ export default {
     CartList,
     EmptyCart,
     GoodsList,
-    Tabbar
+    Tabbar,
   },
   computed: {
-    ...mapState(['ShopCart','manage']),
+    ...mapState(['ShopCart', 'manage']),
     ...mapGetters(['SELECT_GOODS_COUNT', 'SELECT_GOODS_PRICE']),
     CheckAll: {
       get() {
@@ -58,8 +58,21 @@ export default {
       }
     }
   },
-  methods:{
-   ...mapMutations(['DEL_GOODS']),
+  methods: {
+    delGoods() {
+      let This = this;
+      confirm({
+        title: `确认将这${this.SELECT_GOODS_COUNT}个宝贝删除？`,
+        cancel: '我再想想',
+        ok: '删除',
+        handelok() {
+          This.$store.commit('DEL_GOODS')
+          messageBox({
+            content: '宝贝删除成功'
+          })
+        }
+      })
+    }
   }
 };
 </script>
@@ -110,10 +123,11 @@ export default {
   height: 0.8rem;
 }
 #totalPrice input:checked {
-  background: url("../../assets/images/checked.png") no-repeat;
+  background: url("../../assets/images/Cart/checked.png") no-repeat;
   background-size: cover;
 }
-#totalPrice .price,.delGoods {
+#totalPrice .price,
+.delGoods {
   width: 70%;
   height: 100%;
   display: flex;
@@ -133,7 +147,7 @@ export default {
   margin-left: 0.6rem;
   font-size: 0.65rem;
 }
-#totalPrice .delGoods button{
+#totalPrice .delGoods button {
   width: 3.5rem;
   height: 50%;
   border-radius: 1rem;
@@ -141,9 +155,9 @@ export default {
   color: #ff5000;
   background-color: #fff;
 }
-#totalPrice .delGoods button:nth-child(2){
+#totalPrice .delGoods button:nth-child(2) {
   width: 2.5rem;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   color: #fc0a0a;
 }
 </style>

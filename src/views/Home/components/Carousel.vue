@@ -18,11 +18,11 @@ export default {
     return {
       n: 0,
       imgs: [
-        require("@/assets/images/bo1.jpg"),
-        require("@/assets/images/bo2.jpg"),
-        require("@/assets/images/bo3.jpg"),
-        require("@/assets/images/bo4.jpg"),
-        require("@/assets/images/bo5.jpg")
+        require("@/assets/images/Home/bo1.jpg"),
+        require("@/assets/images/Home/bo2.jpg"),
+        require("@/assets/images/Home/bo3.jpg"),
+        require("@/assets/images/Home/bo4.jpg"),
+        require("@/assets/images/Home/bo5.jpg")
       ]
     };
   },

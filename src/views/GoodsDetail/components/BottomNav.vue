@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import {messageBox} from '../../../components/JS'
 export default {
   name: 'bottomNav',
   props: {
@@ -20,7 +21,8 @@ export default {
   },
   methods: {
     addGoods(item) {
-      this.$store.commit('ADD_GOODS', item)
+      this.$store.commit('ADD_GOODS', item);
+      messageBox({content:'添加成功！在购物车等 亲~'})
     }
   }
 }

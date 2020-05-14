@@ -30,7 +30,7 @@ export default {
   props: ['id'],
   components: {
     GoodsOptions,
-    BottomNav
+    BottomNav,
   },
   data() {
     return {
