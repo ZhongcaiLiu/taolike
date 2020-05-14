@@ -1,19 +1,2 @@
-# taolike
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# taolike大型电商项目
+## 项目始于2020年05月02日，目前还未完成...
