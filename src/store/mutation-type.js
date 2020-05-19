@@ -18,3 +18,7 @@ export const SELECT_GOODS_PRICE = 'SELECT_GOODS_PRICE'
 export const CHANGE_MANAGE = 'CHANGE_MANAGE'
 //删除购物车商品
 export const DEL_GOODS = 'DEL_GOODS'
+//更新订单
+export const UPDATE_ORDER = 'UPDATE_ORDER'
+//订单总价
+export const ORDER_PRICE='ORDER_PRICE'

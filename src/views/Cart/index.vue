@@ -16,7 +16,7 @@
       </div>
       <div class="price" v-if="manage=='管理'">
         <span>合计：<span>￥{{SELECT_GOODS_PRICE}}</span></span>
-        <button>结算({{SELECT_GOODS_COUNT}})</button>
+        <button @touchstart='pay'>结算({{SELECT_GOODS_COUNT}})</button>
       </div>
       <div class="delGoods" v-else>
         <button>移入收藏夹</button>
@@ -72,6 +72,16 @@ export default {
           })
         }
       })
+    },
+    pay() {
+      if (this.SELECT_GOODS_PRICE>0) {
+        this.$store.commit('UPDATE_ORDER')
+        this.$router.push('/order')
+      }else{
+        messageBox({
+          content:'请选择要结算的商品！'
+        })
+      }
     }
   }
 };

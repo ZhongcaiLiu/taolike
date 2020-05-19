@@ -25,7 +25,7 @@ export default {
   },
   filters: {
     formatPrice(val) {
-      return parseFloat(val.split('-')[0]).toFixed(2)
+      return parseFloat(val).toFixed(2)
     }
   },
   methods: {

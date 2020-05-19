@@ -7,7 +7,8 @@ import {
     IS_CHECK,
     ALL_CHECK,
     CHANGE_MANAGE,
-    DEL_GOODS
+    DEL_GOODS,
+    UPDATE_ORDER
 } from './mutation-type';
 import {
     setLocalStorage
@@ -109,5 +110,25 @@ export default {
         setLocalStorage('AllCheck',state.AllCheck)//把是否全选存入本地
         setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
         state.ShopCart = ShopCart;
+    },
+    [UPDATE_ORDER](state,item) {
+        let { ShopCart, Order } = state
+        if (!item) {
+            Order = ShopCart.filter(s => s.checked)
+        } else {
+            let index=Order.findIndex(o=>o._id===item._id)
+            if (Order.length === 0||index===-1) {
+                Vue.set(item, 'num', 1)
+                Order = [];
+                Order.push(item)
+            } else {
+               Order[index].num++
+            }  
+        }
+        Order.forEach(o => {
+            o.price=parseFloat(o.price)
+        })
+        setLocalStorage('Order',Order)
+        state.Order = Order;
     }
 }

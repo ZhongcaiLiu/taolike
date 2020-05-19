@@ -10,6 +10,7 @@ const Mine = () => import('../views/Mine')
 const GoodsDetail = () => import('../views/GoodsDetail')
 const Register = () => import('../views/Register')
 const Login = () => import('../views/Login')
+const Order=()=>import('../views/Order')
 
 
 export default new VueRouter({
@@ -50,6 +51,10 @@ export default new VueRouter({
         {
             path: '/login',
             component:Login
+        },
+        {
+            path: '/order',
+            component:Order
         }
     ]
 })

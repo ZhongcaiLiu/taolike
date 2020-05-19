@@ -7,7 +7,7 @@
     </div>
     <div class="btn">
       <button @touchstart='addGoods(goodsDetail)'>加入购物车</button>
-      <button>立即购买</button>
+      <button @touchstart='buy(goodsDetail)'>立即购买</button>
     </div>
   </div>
 </template>
@@ -23,6 +23,10 @@ export default {
     addGoods(item) {
       this.$store.commit('ADD_GOODS', item);
       messageBox({content:'添加成功！在购物车等 亲~'})
+    },
+    buy(item){
+      this.$store.commit('UPDATE_ORDER',item)
+      this.$router.push('/order')
     }
   }
 }
