@@ -21,4 +21,6 @@ export const DEL_GOODS = 'DEL_GOODS'
 //更新订单
 export const UPDATE_ORDER = 'UPDATE_ORDER'
 //订单总价
-export const ORDER_PRICE='ORDER_PRICE'
+export const ORDER_PRICE = 'ORDER_PRICE'
+//添加收货地址
+export const ADD_ADDRESS = 'ADD_ADDRESS'

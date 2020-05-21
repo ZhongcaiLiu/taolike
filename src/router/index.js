@@ -10,7 +10,10 @@ const Mine = () => import('../views/Mine')
 const GoodsDetail = () => import('../views/GoodsDetail')
 const Register = () => import('../views/Register')
 const Login = () => import('../views/Login')
-const Order=()=>import('../views/Order')
+const Order = () => import('../views/Order')
+const MyAddress = () => import('../views/MyAddress')
+const AddAddress = () => import('../views/AddAddress')
+const EditAddress = () => import('../views/EditAddress')
 
 
 export default new VueRouter({
@@ -46,15 +49,27 @@ export default new VueRouter({
         },
         {
             path: '/register',
-            component:Register
+            component: Register
         },
         {
             path: '/login',
-            component:Login
+            component: Login
         },
         {
             path: '/order',
-            component:Order
+            component: Order
+        },
+        {
+            path: '/myaddress',
+            component: MyAddress,
+        },
+        {
+            path: '/addaddress',
+            component: AddAddress
+        },
+        {
+            path: '/editaddress/:id',
+            component:EditAddress
         }
     ]
 })

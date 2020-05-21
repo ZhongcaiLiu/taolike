@@ -1,7 +1,10 @@
-import {getLocalStorage}from '../utils/LocalStorage'
+import {
+    getLocalStorage
+} from '../utils/LocalStorage'
 export default {
-    ShopCart: getLocalStorage('ShopCart')||[],
-    AllCheck: getLocalStorage('AllCheck')||false,
+    ShopCart: getLocalStorage('ShopCart') || [],
+    AllCheck: getLocalStorage('AllCheck') || false,
     manage: '管理',
-    Order:getLocalStorage('Order')||[]
+    Order: getLocalStorage('Order') || [],
+    Address: getLocalStorage('Address')||[]
 }
