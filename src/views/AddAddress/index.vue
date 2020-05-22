@@ -46,15 +46,15 @@ export default {
     },
     save() {
       let address = this.info;
-      this.$set(address, 'default', this.default)
-      this.$store.commit('ADD_ADDRESS', address)
-      messageBox({
-        content: '添加成功！'
+      this.$set(address, 'defaults', this.default)
+      this.axios.post('/api/address/add', address).then(res => {
+        messageBox({
+          content: '添加成功！'
+        })
+        setTimeout(() => {
+          this.$router.push('/myaddress')
+        }, 1000)
       })
-      setTimeout(() => {
-        this.$router.push('/myaddress')
-      },1000)
-
     }
   }
 }

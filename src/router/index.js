@@ -24,6 +24,9 @@ export default new VueRouter({
         {
             path: '/home',
             component: Home,
+            meta: {
+                KeepAlive: true,
+            },
             children: [{
                 path: 'goodsDetail/:id',
                 component: GoodsDetail,
@@ -32,20 +35,29 @@ export default new VueRouter({
         },
         {
             path: '/category',
-            component: Category
+            component: Category,
+            meta: {
+                KeepAlive: true,
+            },
         },
         {
             path: '/cart',
             component: Cart,
+            meta: {
+                KeepAlive: true,
+            },
             children: [{
                 path: 'goodsDetail/:id',
                 component: GoodsDetail,
                 props: true
-            }]
+            }],
         },
         {
             path: '/mine',
-            component: Mine
+            component: Mine,
+            meta: {
+                KeepAlive: true,
+            },
         },
         {
             path: '/register',

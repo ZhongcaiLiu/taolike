@@ -15,7 +15,7 @@
 import AddressHeader from '@/views/MyAddress/components/AddressHeader'
 import CheckedAddress from '@/views/MyAddress/components/CheckedAddress'
 import AddressList from '@/views/MyAddress/components/AddressList'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'MyAddress',
   components: {
@@ -23,19 +23,22 @@ export default {
     CheckedAddress,
     AddressList
   },
-  computed:{
+  computed: {
     ...mapState(['Address'])
+  },
+  mounted() {
+    this.$store.dispatch('getAddressList')
   }
 }
 </script>
 
 <style scoped>
-#MyAddress{
+#MyAddress {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-.tip{
+.tip {
   flex: 1;
   display: flex;
   justify-content: center;

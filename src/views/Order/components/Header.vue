@@ -1,7 +1,7 @@
 <template>
   <div id="Header">
     <div class="header" @tap='back'><span class="iconfont icon-iconfontjiantou1"></span>确认订单</div>
-    <div class="userinfo" v-if="Address.length" @tap='toAdress'>
+    <div class="userinfo" v-if="Address.length||defaults.length" @tap='toAdress'>
       <span class="iconfont icon-shouhuodizhi"></span>
       <div class="address" v-for="(item, index) in defaults" :key="index">
         <p><span>{{item.name}}</span><span>{{item.phone}}</span></p>
@@ -23,7 +23,7 @@ export default {
   computed: {
     ...mapState(['Address']),
     defaults() {
-      return this.Address.filter(a => a.default)
+      return this.Address.filter(a => a.defaults)
     }
   },
   methods: {

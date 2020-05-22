@@ -6,5 +6,5 @@ export default {
     AllCheck: getLocalStorage('AllCheck') || false,
     manage: '管理',
     Order: getLocalStorage('Order') || [],
-    Address: getLocalStorage('Address')||[]
+    Address:[]
 }

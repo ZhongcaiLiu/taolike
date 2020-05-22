@@ -6,59 +6,83 @@
       <span @touchstart='save'>保存</span>
     </div>
     <div class="addaddress">
-      <input type="text" placeholder="收货人" v-model="info.name">
-      <input type="number" placeholder="手机号码" v-model="info.phone">
-      <input type="text" placeholder="收货地址" v-model="info.address">
+      <input type="text" placeholder="收货人" v-model="Address.name">
+      <input type="number" placeholder="手机号码" v-model="Address.phone">
+      <input type="text" placeholder="收货地址" v-model="Address.address">
     </div>
     <div class="default">设为默认地址
       <div @touchstart='move' ref="qiu"></div>
       <div ref="kuang"></div>
     </div>
-    <p class="del">删除收货地址</p>
+    <p class="del" @touchstart='Delete'>删除收货地址</p>
   </div>
 </template>
 
 <script>
-import { messageBox } from '../../components/JS'
+import { messageBox, confirm } from '../../components/JS'
 import { mapState } from 'vuex'
 export default {
   name: 'EditAddress',
   data() {
     return {
-      default: false,
-      id:''
+      id: this.$route.params.id,
+      Address: {}
     }
   },
-  computed: {
-    ...mapState(['Address'])
+  async mounted() {
+    await this.axios.get('/api/address/edit', { params: { id: this.id } }).then(res => {
+      this.Address = res.data.data[0];
+    });
+    if (this.Address.defaults) {
+      this.$refs.qiu.style.transform = 'translateX(55%)'
+      this.$refs.qiu.style.backgroundColor = 'skyblue'
+      this.$refs.kuang.style.backgroundColor = '#f40'
+    }
   },
   methods: {
     move() {
-      if (!this.default) {
+      if (!this.Address.defaults) {
         this.$refs.qiu.style.transform = 'translateX(55%)'
         this.$refs.qiu.style.backgroundColor = 'skyblue'
         this.$refs.kuang.style.backgroundColor = '#f40'
-        this.default = true;
+        this.Address.defaults = true;
       } else {
         this.$refs.qiu.style.transform = 'translateX(-8%)'
         this.$refs.qiu.style.backgroundColor = '#ddd'
         this.$refs.kuang.style.backgroundColor = '#888'
-        this.default = false;
+        this.Address.defaults = false;
       }
     },
     back() {
       this.$router.push('/myaddress')
     },
     save() {
-      let address = this.info;
-      this.$set(address, 'default', this.default)
-      this.$store.commit('ADD_ADDRESS', address)
-      messageBox({
-        content: '添加成功！'
+      this.axios.post('/api/address/editSave', this.Address).then(res => {
+        messageBox({
+          content: '编辑成功！'
+        })
+        setTimeout(() => {
+          this.$router.push('/myaddress')
+        }, 1000)
       })
-      setTimeout(() => {
-        this.$router.push('/myaddress')
-      }, 1000)
+    },
+    Delete() {
+      let This=this;//改变this指向
+      confirm({
+        title: '确认删除这个收货地址吗？',
+        cancel: '取消',
+        ok: '确定',
+        handelok() {
+          This.axios.post('/api/address/del', { _id: This.id }).then(res => {
+            messageBox({
+              content: '删除成功！'
+            })
+            setTimeout(() => {
+              This.$router.push('/myaddress')
+            }, 1000)
+          })
+        }
+      })
 
     }
   }

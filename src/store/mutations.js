@@ -9,7 +9,10 @@ import {
     CHANGE_MANAGE,
     DEL_GOODS,
     UPDATE_ORDER,
-    ADD_ADDRESS
+    ADD_ADDRESS,
+    EDIT_ADDRESS,
+    DELETE_ADDRESS,
+    GET_ADDRESS
 } from './mutation-type';
 import {
     setLocalStorage
@@ -136,11 +139,29 @@ export default {
         let Address = state.Address;
         if (address.default) {
             Address.forEach(a => {
-                a.default = false;
+                if (a.default) {
+                    a.default = false;
+                }
             })
         }
         Address.push(address)
         setLocalStorage('Address', Address)
         state.Address = Address;
+    },
+    [EDIT_ADDRESS](state,newaddress) {
+        let Address = state.Address;
+        let { index, address } = newaddress;
+        Address[index] = address;
+        setLocalStorage('Address', Address);
+        state.Address = Address;
+    },
+    [DELETE_ADDRESS](state, index) {
+        let Address = state.Address;
+        Address.splice(index, 1);
+        setLocalStorage('Address', Address);
+        state.Address = Address;
+    },
+    [GET_ADDRESS](state, data) {
+        state.Address = data;
     }
 }

@@ -1,21 +1,22 @@
 <template>
   <div id="CheckedAddress">
-    <span class="iconfont icon-shouhuodizhi"></span>
-    <div class="address" v-for="(item, index) in defaults" :key="index">
-      <p><span>{{item.name}}</span><span>{{item.phone}}</span></p>
-      <p><span class="default">默认地址</span>{{item.address}}</p>
+      <span class="iconfont icon-shouhuodizhi"></span>
+      <div class="address" v-for="(item, index) in defaults" :key="index">
+        <p><span>{{item.name}}</span><span>{{item.phone}}</span></p>
+        <p><span class="default">默认地址</span>{{item.address}}</p>
+      </div>
+      <div id="cover" v-if="!defaults.length">您还没有默认收货地址,从下面地址中选一个或者添加一个吧！</div></div>
     </div>
-  </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'CheckedAddress',
-  computed:{
+  computed: {
     ...mapState(['Address']),
-    defaults(){
-      return this.Address.filter(a=>a.default)
+    defaults() {
+      return this.Address.filter(a => a.defaults)
     }
   }
 }
@@ -28,7 +29,8 @@ export default {
   align-items: center;
   height: 4rem;
   padding: 0 1rem;
-  >span {
+  position: relative;
+  > span {
     font-size: 28px;
     margin-right: 0.5rem;
     color: #f40;
@@ -36,7 +38,7 @@ export default {
   .address {
     font-size: 14px;
     p {
-      margin-bottom: .2rem;
+      margin-bottom: 0.2rem;
       span {
         font-size: 18px;
         &:nth-child(2) {
@@ -45,12 +47,28 @@ export default {
           margin: 0 0.6rem;
         }
       }
-      .default{
+      .default {
         font-size: 14px;
         background-color: #eee;
         color: #f40;
       }
     }
   }
+}
+#cover{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #f40;
+  padding: 0 2rem;
+  font-weight: bold;
+  box-sizing: border-box;
 }
 </style>
