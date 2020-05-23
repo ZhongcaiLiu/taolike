@@ -46,15 +46,24 @@ export default {
     },
     save() {
       let address = this.info;
-      this.$set(address, 'defaults', this.default)
-      this.axios.post('/api/address/add', address).then(res => {
-        messageBox({
-          content: '添加成功！'
+      let reg = /^1[3456789]\d{9}$/
+      if (reg.test(address.phone)) {
+        this.$set(address, 'defaults', this.default)
+        this.axios.post('/api/address/add', address).then(res => {
+          messageBox({
+            content: '添加成功！'
+          })
+          setTimeout(() => {
+            this.$router.push('/myaddress')
+          }, 1000)
         })
-        setTimeout(() => {
-          this.$router.push('/myaddress')
-        }, 1000)
-      })
+      }else{
+        messageBox({
+          content:'请输入有效手机号！'
+        })
+        return false;
+      }
+
     }
   }
 }

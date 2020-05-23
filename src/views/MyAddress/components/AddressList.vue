@@ -43,7 +43,7 @@ export default {
     align-items: center;
     height: 4rem;
     padding: 0 1rem;
-    span {
+    >span {
       &:nth-child(1) {
         font-size: 28px;
         margin-right: 0.5rem;
@@ -63,6 +63,8 @@ export default {
         margin-bottom: 0.2rem;
         span {
           font-size: 18px;
+          display: inline-block;
+          width: 3rem;
           &:nth-child(2) {
             color: #888;
             font-size: 14px;

@@ -9,10 +9,8 @@ import {
     CHANGE_MANAGE,
     DEL_GOODS,
     UPDATE_ORDER,
-    ADD_ADDRESS,
-    EDIT_ADDRESS,
-    DELETE_ADDRESS,
-    GET_ADDRESS
+    GET_ADDRESS,
+    CHANGE_TYPEID
 } from './mutation-type';
 import {
     setLocalStorage
@@ -36,6 +34,7 @@ export default {
                 state.AllCheck = false;
             }
         })
+        setLocalStorage('AllCheck',state.AllCheck)//把是否全选存入本地
         setLocalStorage('ShopCart',ShopCart)//把ShopCart变化存入本地
         //同步更新state数据
         state.ShopCart = ShopCart;
@@ -135,33 +134,10 @@ export default {
         setLocalStorage('Order',Order)
         state.Order = Order;
     },
-    [ADD_ADDRESS](state, address) {
-        let Address = state.Address;
-        if (address.default) {
-            Address.forEach(a => {
-                if (a.default) {
-                    a.default = false;
-                }
-            })
-        }
-        Address.push(address)
-        setLocalStorage('Address', Address)
-        state.Address = Address;
-    },
-    [EDIT_ADDRESS](state,newaddress) {
-        let Address = state.Address;
-        let { index, address } = newaddress;
-        Address[index] = address;
-        setLocalStorage('Address', Address);
-        state.Address = Address;
-    },
-    [DELETE_ADDRESS](state, index) {
-        let Address = state.Address;
-        Address.splice(index, 1);
-        setLocalStorage('Address', Address);
-        state.Address = Address;
-    },
     [GET_ADDRESS](state, data) {
         state.Address = data;
+    },
+    [CHANGE_TYPEID](state, id) {
+        state.typeid = id;
     }
 }

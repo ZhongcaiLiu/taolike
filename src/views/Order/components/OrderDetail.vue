@@ -21,7 +21,7 @@
         </li>
         <li>
           <div class="left">配送时间</div>
-          <div class="time">24.00前付款，预计5月22日送达</div>
+          <div class="time">24.00前付款，预计{{Mounth}}月{{Day}}日送达</div>
         </li>
         <li>
           <div class="left">运费险</div>
@@ -48,7 +48,13 @@ import { mapState } from 'vuex'
 export default {
   name: 'OrderDetail',
   computed: {
-    ...mapState(['Order'])
+    ...mapState(['Order']),
+    Mounth(){
+      return new Date().getMonth()+1
+    },
+    Day(){
+      return new Date().getDate()+2
+    }
   },
   filters: {
     moneyFormat(val) {

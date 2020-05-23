@@ -1,7 +1,7 @@
 <template>
   <div id="Header">
     <div class="header" @tap='back'><span class="iconfont icon-iconfontjiantou1"></span>确认订单</div>
-    <div class="userinfo" v-if="Address.length||defaults.length" @tap='toAdress'>
+    <div class="userinfo" v-if="defaults.length" @tap='toAdress'>
       <span class="iconfont icon-shouhuodizhi"></span>
       <div class="address" v-for="(item, index) in defaults" :key="index">
         <p><span>{{item.name}}</span><span>{{item.phone}}</span></p>
@@ -28,11 +28,14 @@ export default {
   },
   methods: {
     back() {
-      this.$router.back()
+      this.$router.push('/cart')
     },
     toAdress() {
       this.$router.push('/myaddress')
     }
+  },
+  mounted() {
+    this.$store.dispatch('getAddressList')
   }
 }
 </script>
@@ -56,7 +59,7 @@ export default {
     height: 4rem;
     width: 88%;
     margin: 1rem auto;
-    padding:0 .5rem;
+    padding: 0 0.5rem;
     border-radius: 10px;
     > span {
       font-size: 28px;

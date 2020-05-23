@@ -22,11 +22,7 @@ export const DEL_GOODS = 'DEL_GOODS'
 export const UPDATE_ORDER = 'UPDATE_ORDER'
 //订单总价
 export const ORDER_PRICE = 'ORDER_PRICE'
-//添加收货地址
-export const ADD_ADDRESS = 'ADD_ADDRESS'
-//编辑收货地址
-export const EDIT_ADDRESS = 'EDIT_ADDRESS'
-//删除收货地址
-export const DELETE_ADDRESS = 'DELETE_ADDRESS'
 //获取收货地址列表
 export const GET_ADDRESS = 'GET_ADDRESS'
+//改变分类页id
+export const CHANGE_TYPEID = 'CHANGE_TYPEID'

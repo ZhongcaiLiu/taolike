@@ -39,6 +39,11 @@ export default new VueRouter({
             meta: {
                 KeepAlive: true,
             },
+            children: [{
+                path: 'goodsDetail/:id',
+                component: GoodsDetail,
+                props: true
+            }],
         },
         {
             path: '/cart',
@@ -81,7 +86,7 @@ export default new VueRouter({
         },
         {
             path: '/editaddress/:id',
-            component:EditAddress
+            component: EditAddress
         }
     ]
 })
