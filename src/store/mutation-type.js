@@ -26,3 +26,5 @@ export const ORDER_PRICE = 'ORDER_PRICE'
 export const GET_ADDRESS = 'GET_ADDRESS'
 //改变分类页id
 export const CHANGE_TYPEID = 'CHANGE_TYPEID'
+//搜索关键字
+export const SEARCH = 'SEARCH';

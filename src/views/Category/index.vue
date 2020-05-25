@@ -1,12 +1,12 @@
 <template>
   <div id="Category">
-    <div id="boxFixed" :class="{'is_fixed' : isFixed}">
+    <div :class="isFixed?'fixed':''" ref="boxFixed">
       <Search />
       <Nav />
     </div>
-    <Scroller>
+    <div id="wrapper">
       <GoodsCategory />
-    </Scroller>
+    </div>
     <router-view></router-view>
     <Tabbar />
   </div>
@@ -17,12 +17,12 @@ import Search from '@/views/Category/components/Search'
 import Nav from '@/views/Category/components/Nav'
 import GoodsCategory from '@/views/Category/components/GoodsCategory'
 import Tabbar from '@/components/Tabbar'
+import BScroll from 'better-scroll'
 export default {
   name: "category",
   data() {
     return {
       isFixed: false,
-      offsetTop:0
     }
   },
   components: {
@@ -32,31 +32,51 @@ export default {
     Tabbar
   },
   mounted() {
-    window.addEventListener('scroll', this.initHeight);
+    // handleScroll为页面滚动的监听回调
+    // window.addEventListener('scroll', this.handleScroll); //注意如果用了better-scroll则监听不到scroll事件
+    // window.onscroll=this.handleScroll;
     this.$nextTick(() => {
-      //获取对象相对于版面或由 offsetTop 属性指定的父坐标的计算顶端位置 
-      this.offsetTop = document.querySelector('#boxFixed').offsetTop;
+       const scroll = new BScroll(document.getElementById('wrapper'), {
+        tap: true,
+        mouseWheel: true,    //解决PC端鼠标滚轮无法滚动问题
+        probeType:2 //滚动的时候实时派发scroll事件，不会截流。
+      });
+      scroll.on('scroll', (pos) => {
+        if(pos.y<-2*(this.$refs.boxFixed.offsetHeight)){
+          this.isFixed=true;
+        }else{
+          this.isFixed=false;
+        }
+      })
     })
   },
   methods: {
-    initHeight() {
-      // 设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离 (被卷曲的高度)
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      //如果被卷曲的高度大于吸顶元素到顶端位置 的距离
-      this.isFixed = scrollTop > this.offsetTop ? true : false;
-    },
+    // handleScroll() {
+    //   // 得到页面滚动的距离
+    //   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    //   // 当页面滚动距离大于导航高度时开始吸顶
+    //   if (scrollTop > this.$refs.boxFixed.offsetHeight) {
+    //     this.isFixed = true
+    //   }else{
+    //      this.isFixed = false
+    //   }
+    // }
   },
-  //回调中移除监听
   destroyed() {
-    window.removeEventListener('scroll', this.handleScroll)
+    // window.removeEventListener('scroll', this.handleScroll);
+    // window.onscroll=null;
   }
 };
 </script>
 
 <style scoped>
- .is_fixed{
-    position: fixed;
-    top: 0;
-    z-index: 999;
-  }
+.fixed {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+}
+#wrapper {
+  height: 100vh; /*better-scroll包裹元素要小于子元素高度 */
+}
 </style>

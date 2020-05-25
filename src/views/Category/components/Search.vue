@@ -1,13 +1,23 @@
 <template>
   <div id="Search">
     <span class="iconfont icon-sousuo"></span>
-    <input type="text" placeholder="请输入要找的宝贝">
+    <input type="text" placeholder="请输入要找的宝贝" v-model="kw">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Search'
+  name: 'Search',
+  computed:{
+    kw:{
+      get(){
+        return this.$store.state.kw;
+      },
+      set(kw){
+        this.$store.commit('SEARCH',kw)
+      }
+    }
+  } 
 }
 </script>
 

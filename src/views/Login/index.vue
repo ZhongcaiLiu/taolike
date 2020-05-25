@@ -1,6 +1,6 @@
 <template>
   <div id="Login">
-    <header><span>您需要登录才能继续访问</span><span>关闭</span></header>
+    <header><span>您需要登录才能继续访问</span><router-link tag="span" to="/home">关闭</router-link></header>
     <div class="img"> <img src="@/assets/images/Login/logo.png"></div>
     <div class="form" v-if="flag">
       <input type="email" placeholder="邮箱">

@@ -127,7 +127,7 @@ export default {
           }
         }
         .time {
-          transform: translateX(-27%);
+          transform: translateX(-2.2rem);
         }
         input {
           flex: 1;

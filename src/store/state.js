@@ -7,5 +7,6 @@ export default {
     manage: '管理',
     Order: getLocalStorage('Order') || [],
     Address: [],
-    typeid:1
+    typeid: 1,
+    kw:'',
 }

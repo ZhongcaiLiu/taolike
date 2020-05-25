@@ -16,7 +16,7 @@ const AddAddress = () => import('../views/AddAddress')
 const EditAddress = () => import('../views/EditAddress')
 
 
-export default new VueRouter({
+const router= new VueRouter({
     routes: [{
             path: '/',
             redirect: '/home'
@@ -90,3 +90,16 @@ export default new VueRouter({
         }
     ]
 })
+//配置全局前置路由守卫
+router.beforeEach((to,from,next) => {
+    if (to.path === '/cart' || to.path === '/mine') {
+        if (window.isLogin) { //判断是否登录
+            next();
+        } else {
+            next('/login')
+       }
+    } else {
+        next();
+    }
+})
+export default router;

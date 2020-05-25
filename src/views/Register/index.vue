@@ -6,6 +6,7 @@
     </div>
     <div class="form">
       <input type="email" placeholder="请输入你的邮箱号码">
+      <input type="password" placeholder="请输入密码">
       <input type="number" placeholder="请输入验证码">
       <a href="javascript:;">获取验证码</a>
     </div>
@@ -46,7 +47,7 @@ export default {
 }
 .form {
   position: relative;
-  margin: 1rem 0 .6rem;
+  margin: 1rem 0 0.6rem;
 }
 input {
   width: 100%;
@@ -83,7 +84,7 @@ input::-webkit-input-placeholder {
 .bottom p a {
   color: #f40;
 }
-.toLogin{
+.toLogin {
   font-size: 14px;
 }
 </style>

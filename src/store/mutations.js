@@ -10,7 +10,8 @@ import {
     DEL_GOODS,
     UPDATE_ORDER,
     GET_ADDRESS,
-    CHANGE_TYPEID
+    CHANGE_TYPEID,
+    SEARCH
 } from './mutation-type';
 import {
     setLocalStorage
@@ -139,5 +140,8 @@ export default {
     },
     [CHANGE_TYPEID](state, id) {
         state.typeid = id;
+    },
+    [SEARCH](state, kw) {
+        state.kw = kw;
     }
 }

@@ -20,19 +20,32 @@ export default {
     }
   },
   computed: {
-    ...mapState(['typeid'])
+    ...mapState(['typeid', 'kw'])
   },
   watch: {
     typeid: {
       handler: function (val, oldval) {
-        this.axios.post('/api/goods/category', { typeid: val}).then((res) => {
+        this.axios.post('/api/goods/category', { typeid: val }).then((res) => {
           let status = res.data.err;
           if (status === 0) {
             this.goodslist = res.data.data
           }
         })
       },
-      immediate:true //一开始就监视
+      immediate: true //一开始就监视
+    },
+    kw: {
+      handler: function (val, oldval) {
+        if (val!='') {
+          this.axios.post('api/goods/search', { kw: val }).then(res => {
+            this.goodslist = res.data.data;
+          })
+        }else{
+          this.axios.post('/api/goods/category',{typeid:this.typeid}).then(res=>{
+            this.goodslist=res.data.data;
+          })
+        }
+      }
     }
   },
   filters: {
@@ -56,7 +69,7 @@ export default {
 }
 .goodslist {
   width: 100%;
-  padding: 0.2rem 0 8rem;
+  padding: 0.2rem 0 5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
