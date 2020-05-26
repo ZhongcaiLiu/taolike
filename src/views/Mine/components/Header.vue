@@ -5,7 +5,7 @@
         <div class="userimg"><img src="@/assets/images/Mine/user.jpg"></div>
         <div class="userinfo">
             <p>Arjun</p>
-            <p>手机号：18888888888</p>
+            <p>邮箱:{{user}}</p>
         </div>
     </div>
   </div>
@@ -13,7 +13,17 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  data(){
+      return{
+       user:''
+      }
+  },
+  mounted(){
+      this.axios.get('api/user/getUser').then(res=>{
+          this.user=res.data.data;
+      })
+  }
 }
 </script>
 

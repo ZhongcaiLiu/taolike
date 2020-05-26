@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
@@ -60,9 +61,6 @@ const router= new VueRouter({
         {
             path: '/mine',
             component: Mine,
-            meta: {
-                KeepAlive: true,
-            },
         },
         {
             path: '/register',
@@ -93,11 +91,14 @@ const router= new VueRouter({
 //配置全局前置路由守卫
 router.beforeEach((to,from,next) => {
     if (to.path === '/cart' || to.path === '/mine') {
-        if (window.isLogin) { //判断是否登录
-            next();
-        } else {
-            next('/login')
-       }
+        axios.get('/api/user/getUser').then(res => {//调用接口判断是否登录
+            let status = res.data.err;
+            if (status === 0) {
+                next();
+            } else {
+                next('/login')
+            }
+       })
     } else {
         next();
     }

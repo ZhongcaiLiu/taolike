@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="item">
-      <p><span class="iconfont icon-shouhuodizhi"></span>我的收货地址</p><span class="iconfont icon-youjiantou"></span>
+      <p @touchstart='toMyaddress'><span class="iconfont icon-shouhuodizhi"></span>我的收货地址</p><span class="iconfont icon-youjiantou"></span>
     </div>
     <div class="item">
       <div>
@@ -21,14 +21,36 @@
       </div>
     </div>
     <div class="item">
-      <p><span class="iconfont icon-shezhi"></span>设置</p><span class="iconfont icon-youjiantou"></span>
+      <p @touchstart='loginOut'><span class="iconfont icon-shezhi"></span>退出登录</p><span class="iconfont icon-youjiantou"></span>
     </div>
   </div>
 </template>
 
 <script>
+import { messageBox, confirm } from '@/components/JS'
 export default {
-  name: 'MyOptions'
+  name: 'MyOptions',
+  methods: {
+    loginOut() {
+      let This=this;
+      confirm({
+        title: '确认退出登录吗？',
+        cancel: '取消',
+        ok: '确定',
+        handelok() {
+          This.axios.get('/api/user/loginOut').then(res => {
+            messageBox({
+              content: res.data.msg
+            })
+            This.$router.push('/login')
+          })
+        }
+      })
+    },
+    toMyaddress(){
+      this.$router.push('/myaddress')
+    }
+  }
 }
 </script>
 

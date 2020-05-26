@@ -5,14 +5,15 @@
       <p>亲，欢迎注册taolike账号</p>
     </div>
     <div class="form">
-      <input type="email" placeholder="请输入你的邮箱号码">
-      <input type="password" placeholder="请输入密码">
-      <input type="number" placeholder="请输入验证码">
-      <a href="javascript:;">获取验证码</a>
+      <input type="email" placeholder="请输入你的邮箱号码" v-model="email">
+      <input type="password" placeholder="请输入密码" v-model="password">
+      <input type="number" placeholder="请输入验证码" v-model="code">
+      <a href="javascript:;" @touchstart='Getcode' v-if="getCode">获取验证码</a>
+      <a href="javascript:;" v-else>{{time}}s后重新获取</a>
     </div>
     <router-link to="/login" class="toLogin">去登录</router-link>
     <div class="bottom">
-      <button>同意协议并注册</button>
+      <button @touchstart='Register'>同意协议并注册</button>
       <p>已阅读并同意以下协议
         <a href="#"> taolike平台服务协议,</a>
         <a href="#"> 隐私权政策,</a>
@@ -24,8 +25,52 @@
 </template>
 
 <script>
+import {messageBox} from '@/components/JS'
 export default {
   name: 'Register',
+  data(){
+    return{
+      email:'',
+      password:'',
+      code:'',
+      getCode: true,
+      time: 60
+    }
+  },
+  methods:{
+    Getcode() {
+      this.axios.post('/api/user/verify', { email: this.email }).then(res => {
+        messageBox({
+          content: res.data.msg
+        })
+        if (res.data.msg === '验证码发送成功') {
+          this.getCode = false;
+          let timer = setInterval(() => {
+            this.time -= 1;
+            if (this.time === 0) {
+              clearInterval(timer);
+              this.getCode = true;
+              this.time=60;
+            }
+          }, 1000)
+        }
+      }).catch((err) => {
+        messageBox({
+          content: res.data.msg
+        })
+      })
+    },
+    Register(){
+      this.axios.post('/api/user/register',{email:this.email,password:this.password,code:this.code}).then(res=>{
+        messageBox({
+          content:res.data.msg
+        })
+        if(res.data.msg==='注册成功'){
+          this.$router.push('/login')
+        }
+      })
+    }
+  }
 }
 </script>
 

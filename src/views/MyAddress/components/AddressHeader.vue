@@ -11,7 +11,7 @@ export default {
   name: 'Header',
   methods:{
     back(){
-      this.$router.push('/order')
+      this.$router.back()
     },
     addAddress(){
       this.$router.push('/addaddress')

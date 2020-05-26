@@ -1,35 +1,86 @@
 <template>
   <div id="Login">
-    <header><span>您需要登录才能继续访问</span><router-link tag="span" to="/home">关闭</router-link></header>
+    <header><span>您需要登录才能继续访问</span>
+      <router-link tag="span" to="/home">关闭</router-link>
+    </header>
     <div class="img"> <img src="@/assets/images/Login/logo.png"></div>
     <div class="form" v-if="flag">
-      <input type="email" placeholder="邮箱">
-      <input type="password" placeholder="请输入登录密码">
+      <input type="email" placeholder="邮箱" v-model="email">
+      <input type="password" placeholder="请输入登录密码" v-model="password">
       <p><span @touchstart='flag=!flag'>邮箱验证码登录</span><span @touchstart='toRegister'>免费注册</span></p>
-      <button>登录</button>
+      <button @touchstart='Login'>登录</button>
     </div>
     <div class="form2" v-else>
-      <input type="email" placeholder="请输入你的邮箱号码">
-      <input type="number" placeholder="请输入验证码">
-      <span>获取验证码</span>
+      <input type="email" placeholder="请输入你的邮箱号码" v-model="email">
+      <input type="number" placeholder="请输入验证码" v-model="code">
+      <span @touchstart='Getcode' v-if="getCode">获取验证码</span>
+      <span v-else>{{time}}s后重新获取</span>
       <router-link to="/register">免费注册</router-link>
-      <button>登录</button>
+      <button @touchstart="LoginBycode">登录</button>
       <button @touchstart='flag=!flag'>账号密码登录</button>
     </div>
   </div>
 </template>
 
 <script>
+import { messageBox } from '@/components/JS'
 export default {
   name: 'Login',
   data() {
     return {
-      flag: true
+      flag: true,
+      email: '',
+      password: '',
+      code: '',
+      getCode: true,
+      time: 60
     }
   },
   methods: {
     toRegister() {
       this.$router.push('/register')
+    },
+    Login() {
+      this.axios.post('/api/user/login', { email: this.email, password: this.password }).then(res => {
+        messageBox({
+          content: res.data.msg
+        })
+        if (res.data.msg = '登录成功') {
+          this.$router.push('/mine')
+        }
+      })
+    },
+    LoginBycode() {
+      this.axios.post('api/user/loginBycode', { email: this.email, code: this.code }).then(res => {
+        messageBox({
+          content: res.data.msg
+        })
+        if (res.data.msg = '登录成功') {
+          this.$router.push('/mine')
+        }
+      })
+    },
+    Getcode() {
+      this.axios.post('/api/user/verify', { email: this.email }).then(res => {
+        messageBox({
+          content: res.data.msg
+        })
+        if (res.data.msg === '验证码发送成功') {
+          this.getCode = false;
+          let timer = setInterval(() => {
+            this.time -= 1;
+            if (this.time === 0) {
+              clearInterval(timer);
+              this.getCode = true;
+              this.time = 60;
+            }
+          }, 1000)
+        }
+      }).catch((err) => {
+        messageBox({
+          content: res.data.msg
+        })
+      })
     }
   }
 }
@@ -114,13 +165,13 @@ button {
 .form2 a {
   font-size: 14px;
 }
-.form2 button{
-    margin-top: 1rem;
+.form2 button {
+  margin-top: 1rem;
 }
-.form2 button:nth-of-type(2){
-    background-color: transparent;
-    background-image: none;
-    color: #f40;
-    border: 1px solid #f40;
+.form2 button:nth-of-type(2) {
+  background-color: transparent;
+  background-image: none;
+  color: #f40;
+  border: 1px solid #f40;
 }
 </style>
