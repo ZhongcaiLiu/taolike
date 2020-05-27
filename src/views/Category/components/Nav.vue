@@ -9,7 +9,7 @@ export default {
   name: 'Nav',
   data(){
       return{
-          nav:['家居','女装','男装','运动','潮流馆'],
+          nav:['家居','女装','男装','运动','潮玩馆'],
           flag:0
       }
   },
