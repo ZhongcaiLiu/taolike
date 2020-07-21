@@ -13,20 +13,44 @@
 </template>
 
 <script>
-import {messageBox} from '../../../components/JS'
+import { messageBox } from '../../../components/JS'
 export default {
   name: 'bottomNav',
   props: {
     goodsDetail: Object
   },
   methods: {
-    addGoods(item) {
-      this.$store.commit('ADD_GOODS', item);
-      messageBox({content:'添加成功！在购物车等 亲~'})
+    async addGoods(item) {
+      let result = await this.axios.get('/api/user/getUser').then(res => {
+        if (res.data.err === -1) {
+          return false;
+        } else {
+          return true;
+        }
+      })
+      if (!result) {
+        messageBox({ content: '您还未登录！请先登录！' })
+        this.$router.push('/login')
+      } else {
+        this.$store.commit('ADD_GOODS', item);
+        messageBox({ content: '添加成功！在购物车等 亲~' })
+      }
     },
-    buy(item){
-      this.$store.commit('UPDATE_ORDER',item)
-      this.$router.push('/order')
+    async buy(item) {
+      let result = await this.axios.get('/api/user/getUser').then(res => {
+        if (res.data.err === -1) {
+          return false;
+        } else {
+          return true;
+        }
+      })
+      if (!result) {
+        messageBox({ content: '您还未登录！请先登录！' })
+        this.$router.push('/login')
+      } else {
+        this.$store.commit('UPDATE_ORDER', item)
+        this.$router.push('/order')
+      }
     }
   }
 }
